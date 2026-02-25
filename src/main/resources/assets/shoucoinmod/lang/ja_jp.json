@@ -1,5 +1,8 @@
 {
   "item.shoucoinmod.copper_coin": "銅のコイン",
   "item.shoucoinmod.iron_coin": "鉄のコイン",
-  "item.shoucoinmod.gold_coin": "金のコイン"
+  "item.shoucoinmod.gold_coin": "金のコイン",
+  "item.shoucoinmod.diamond_coin":"ダイヤのコイン",
+  "item.shoucoinmod.netherite_coin":"ネザライトのコイン",
+  "item.shoucoinmod.emerald_coin": "エメラルドのコイン"
 }

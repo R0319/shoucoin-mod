@@ -1,5 +1,8 @@
 {
   "item.shoucoinmod.copper_coin": "Copper Coin",
   "item.shoucoinmod.iron_coin": "Iron Coin",
-  "item.shoucoinmod.gold_coin": "Gold Coin"
+  "item.shoucoinmod.gold_coin": "Gold Coin",
+  "item.shoucoinmod.diamond_coin":"Diamond Coin",
+  "item.shoucoinmod.netherite_coin":"Netherite Coin",
+  "item.shoucoinmod.emerald_coin": "Emerald Coin"
 }

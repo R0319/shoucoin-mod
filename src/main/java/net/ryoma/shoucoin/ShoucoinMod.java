@@ -12,7 +12,7 @@ public class ShoucoinMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		ModItems.registerModItems();
+		ModItems.register();
 		LOGGER.info("Hello Fabric world!");
 	}
 }
