@@ -11,20 +11,27 @@ import net.minecraft.util.Identifier;
 import net.ryoma.shoucoin.ShoucoinMod;
 
 public class ModItems {
+
+    //アイテム登録
     public static final Item COPPER_COIN = registerItem("copper_coin", new Item(new Item.Settings().registryKey(
             RegistryKey.of(RegistryKeys.ITEM, Identifier.of(ShoucoinMod.MOD_ID,"copper_coin")))));
+
     public static final Item IRON_COIN = registerItem("iron_coin", new Item(new Item.Settings().registryKey(
             RegistryKey.of(RegistryKeys.ITEM, Identifier.of(ShoucoinMod.MOD_ID,"iron_coin")))));
+
     public static final Item GOLD_COIN = registerItem("gold_coin", new Item(new Item.Settings().registryKey(
             RegistryKey.of(RegistryKeys.ITEM, Identifier.of(ShoucoinMod.MOD_ID,"gold_coin")))));
+
     public static final Item DIAMOND_COIN = registerItem("diamond_coin", new Item(new Item.Settings().registryKey(
             RegistryKey.of(RegistryKeys.ITEM, Identifier.of(ShoucoinMod.MOD_ID,"diamond_coin")))));
+
     public static final Item NETHERITE_COIN = registerItem("netherite_coin", new Item(new Item.Settings().registryKey(
             RegistryKey.of(RegistryKeys.ITEM, Identifier.of(ShoucoinMod.MOD_ID,"netherite_coin")))));
+
     public static final Item EMERALD_COIN = registerItem("emerald_coin", new Item(new Item.Settings().registryKey(
             RegistryKey.of(RegistryKeys.ITEM, Identifier.of(ShoucoinMod.MOD_ID,"emerald_coin")))));
 
-
+    //ポータブルクラフティングテーブル、Itemクラスを継承しているクラスに処理を導入
     public static final Item PORTABLE_CRAFTING_TABLE =
             registerItem("portable_crafting_table",
                     new PortableCraftingTableItem(
@@ -40,10 +47,7 @@ public class ModItems {
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, Identifier.of(ShoucoinMod.MOD_ID, name), item);
     }
-
     public static void register() {
-
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS)
-                .register(entries -> entries.add(PORTABLE_CRAFTING_TABLE));
+        // ModItemsクラスの初期化を強制するためのメソッド
     }
 }

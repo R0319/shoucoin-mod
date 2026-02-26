@@ -25,7 +25,7 @@ public class PortableCraftingTableItem extends Item {
                     new SimpleNamedScreenHandlerFactory(
                             (syncId, inventory, p) ->
                                     new PortableCraftingScreenHandler(syncId, inventory),
-                            Text.literal("Portable Crafting Table")
+                            Text.translatable("PortableCraftingTableItemText.shoucoinmod")
                     );
 
             player.openHandledScreen(factory);

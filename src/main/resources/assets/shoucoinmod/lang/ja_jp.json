@@ -4,5 +4,8 @@
   "item.shoucoinmod.gold_coin": "金のコイン",
   "item.shoucoinmod.diamond_coin":"ダイヤのコイン",
   "item.shoucoinmod.netherite_coin":"ネザライトのコイン",
-  "item.shoucoinmod.emerald_coin": "エメラルドのコイン"
+  "item.shoucoinmod.emerald_coin": "エメラルドのコイン",
+  "item.shoucoinmod.portable_crafting_table": "簡易作業台",
+  "PortableCraftingTableItemText.shoucoinmod": "簡易作業台",
+  "itemGroup.shoucoinmod":"しょうちゃんMOD"
 }

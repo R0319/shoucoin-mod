@@ -4,5 +4,8 @@
   "item.shoucoinmod.gold_coin": "Gold Coin",
   "item.shoucoinmod.diamond_coin":"Diamond Coin",
   "item.shoucoinmod.netherite_coin":"Netherite Coin",
-  "item.shoucoinmod.emerald_coin": "Emerald Coin"
+  "item.shoucoinmod.emerald_coin": "Emerald Coin",
+  "item.shoucoinmod.portable_crafting_table": "Portable Crafting Table",
+  "PortableCraftingTableItemText.shoucoinmod": "Crafting",
+  "itemGroup.shoucoinmod": "Shoucoin Mod"
 }

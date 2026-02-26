@@ -2,6 +2,7 @@ package net.ryoma.shoucoin;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.ryoma.shoucoin.item.ModItemGroups;
 import net.ryoma.shoucoin.item.ModItems;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +13,8 @@ public class ShoucoinMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		ModItems.register();
 		LOGGER.info("Hello Fabric world!");
+		ModItems.register();
+		ModItemGroups.register();
 	}
 }
