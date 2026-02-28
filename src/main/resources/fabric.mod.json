@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "shoucoinmod",
-	"version": "${version}",
+	"version": "1.0.1",
 	"name": "shoucoin mod",
 	"description": "This is an example description! Tell everyone what your mod is about!",
 	"authors": [

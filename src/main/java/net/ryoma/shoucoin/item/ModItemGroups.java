@@ -10,7 +10,6 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.ryoma.shoucoin.ShoucoinMod;
-import net.ryoma.shoucoin.item.ModItems;
 
 public class ModItemGroups {
 
