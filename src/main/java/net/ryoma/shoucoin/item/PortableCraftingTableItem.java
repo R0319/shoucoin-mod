@@ -2,11 +2,13 @@ package net.ryoma.shoucoin.item;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import net.ryoma.shoucoin.screen.PortableCraftingScreenHandler;
 
@@ -17,7 +19,7 @@ public class PortableCraftingTableItem extends Item {
     }
 
     @Override
-    public ActionResult use(World world, PlayerEntity player, Hand hand) {
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
 
         if (!world.isClient()) {
 
@@ -31,6 +33,6 @@ public class PortableCraftingTableItem extends Item {
             player.openHandledScreen(factory);
         }
 
-        return ActionResult.SUCCESS;
+        return TypedActionResult.success(player.getStackInHand(hand));
     }
 }

@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "shoucoinmod",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"name": "shoucoin mod",
 	"description": "This is an example description! Tell everyone what your mod is about!",
 	"authors": [
@@ -27,7 +27,7 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.18.4",
-		"minecraft": "~1.21.10",
+		"minecraft": "~1.21.1",
 		"java": ">=21",
 		"fabric-api": "*"
 	}
