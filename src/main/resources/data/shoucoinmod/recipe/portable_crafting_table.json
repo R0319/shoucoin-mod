@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#N#",
+        "DCD",
+        "#n#"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:amethyst_shard"
+        },
+        "N": {
+            "item": "minecraft:netherite_upgrade_smithing_template"
+        },
+        "D": {
+            "item": "minecraft:diamond"
+        },
+        "C": {
+            "item": "minecraft:crafting_table"
+        },
+        "n": {
+            "item": "minecraft:netherite_ingot"
+        }
+    },
+    "result": {
+        "id": "shoucoinmod:portable_crafting_table",
+        "count": 1
+    }
+}
