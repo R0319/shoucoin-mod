@@ -3,7 +3,7 @@
 	"package": "net.ryoma.shoucoin.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
+		"ShoucoinMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

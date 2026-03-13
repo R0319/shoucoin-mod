@@ -10,6 +10,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.ryoma.shoucoin.ShoucoinMod;
+import net.ryoma.shoucoin.block.ModBlocks;
 
 public class ModItemGroups {
 
@@ -21,13 +22,15 @@ public class ModItemGroups {
             .icon(() -> new ItemStack(ModItems.GOLD_COIN))
             .displayName(Text.translatable("itemGroup.shoucoinmod"))
             .entries((context, entries) -> {
-                entries.add(ModItems.COPPER_COIN);
+                entries.add(ModItems.SHOUCOIN);
                 entries.add(ModItems.IRON_COIN);
                 entries.add(ModItems.GOLD_COIN);
                 entries.add(ModItems.DIAMOND_COIN);
                 entries.add(ModItems.EMERALD_COIN);
                 entries.add(ModItems.NETHERITE_COIN);
                 entries.add(ModItems.PORTABLE_CRAFTING_TABLE);
+
+                entries.add(ModBlocks.BANK_JOB_BLOCK);
             })
             .build();
 
