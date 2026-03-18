@@ -15,6 +15,11 @@ public class ModBlocks {
             new BankJobBlock(AbstractBlock.Settings.copy(Blocks.GRAY_CONCRETE).nonOpaque())
     );
 
+    public static final ATMBlock ATM_BLOCK = (ATMBlock) register(
+            "atm",
+            new ATMBlock(AbstractBlock.Settings.copy(Blocks.GRAY_CONCRETE).nonOpaque())
+    );
+
     private static Block register(String name, Block block) {
         return Registry.register(
                 Registries.BLOCK,

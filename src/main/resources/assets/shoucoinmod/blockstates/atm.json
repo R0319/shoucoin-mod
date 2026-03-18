@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "half=lower,facing=north": { "model": "shoucoinmod:block/atm_bottom" },
+    "half=lower,facing=south": { "model": "shoucoinmod:block/atm_bottom", "y": 180 },
+    "half=lower,facing=east":  { "model": "shoucoinmod:block/atm_bottom", "y": 90 },
+    "half=lower,facing=west":  { "model": "shoucoinmod:block/atm_bottom", "y": 270 },
+
+    "half=upper,facing=north": { "model": "shoucoinmod:block/atm" },
+    "half=upper,facing=south": { "model": "shoucoinmod:block/atm", "y": 180 },
+    "half=upper,facing=east":  { "model": "shoucoinmod:block/atm", "y": 90 },
+    "half=upper,facing=west":  { "model": "shoucoinmod:block/atm", "y": 270 }
+  }
+}

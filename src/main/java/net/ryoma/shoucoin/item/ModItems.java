@@ -37,6 +37,12 @@ public class ModItems {
                 Identifier.of(ShoucoinMod.MOD_ID,"bank_job_block"),
                 new BlockItem(ModBlocks.BANK_JOB_BLOCK, new Item.Settings())
         );
+
+        Registry.register(
+                Registries.ITEM,
+                Identifier.of(ShoucoinMod.MOD_ID, "atm"),
+                new BlockItem(ModBlocks.ATM_BLOCK, new Item.Settings())
+        );
     }
 
 
