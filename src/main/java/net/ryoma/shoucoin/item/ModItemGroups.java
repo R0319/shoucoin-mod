@@ -31,6 +31,7 @@ public class ModItemGroups {
                 entries.add(ModItems.PORTABLE_CRAFTING_TABLE);
 
                 entries.add(ModBlocks.BANK_JOB_BLOCK);
+                entries.add(ModBlocks.ATM_BLOCK);
             })
             .build();
 

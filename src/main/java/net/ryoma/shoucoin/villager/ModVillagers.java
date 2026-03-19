@@ -59,15 +59,71 @@ public class ModVillagers {
         ShoucoinMod.LOGGER.info("Profession: " + Registries.VILLAGER_PROFESSION.getId(BANK_VILLAGER));
         ShoucoinMod.LOGGER.info("States: " + ModBlocks.BANK_JOB_BLOCK.getStateManager().getStates());
 
-
-
+        // レベル1の取引（基本素材）
         TradeOfferHelper.registerVillagerOffers(BANK_VILLAGER, 1, factories -> {
+
+            // 銅の原石 → 1S
             factories.add((entity, random) -> new TradeOffer(
-                    new TradedItem(ModItems.GOLD_COIN, 1),
-                    new ItemStack(Items.IRON_BLOCK,64),
-                    30,
-                    5,
-                    0.02f
+                    new TradedItem(Items.RAW_COPPER, 1),
+                    new ItemStack(ModItems.SHOUCOIN, 1),
+                    32, 5, 0.02f
+            ));
+
+            // クォーツ → 2S
+            factories.add((entity, random) -> new TradeOffer(
+                    new TradedItem(Items.QUARTZ, 1),
+                    new ItemStack(ModItems.SHOUCOIN, 2),
+                    32, 5, 0.02f
+            ));
+
+            // レッドストーン → 2S
+            factories.add((entity, random) -> new TradeOffer(
+                    new TradedItem(Items.REDSTONE, 1),
+                    new ItemStack(ModItems.SHOUCOIN, 2),
+                    32, 5, 0.02f
+            ));
+
+            // 鉄の原石 → 8S
+            factories.add((entity, random) -> new TradeOffer(
+                    new TradedItem(Items.RAW_IRON, 1),
+                    new ItemStack(ModItems.SHOUCOIN, 8),
+                    32, 5, 0.02f
+            ));
+        });
+
+        // レベル2の取引（中級素材）
+        TradeOfferHelper.registerVillagerOffers(BANK_VILLAGER, 2, factories -> {
+
+            // 金の原石 → 12S
+            factories.add((entity, random) -> new TradeOffer(
+                    new TradedItem(Items.RAW_GOLD, 1),
+                    new ItemStack(ModItems.SHOUCOIN, 12),
+                    24, 10, 0.02f
+            ));
+
+            // 深層岩のダイヤモンド鉱石 → 50S (IRON_COIN x5)
+            factories.add((entity, random) -> new TradeOffer(
+                    new TradedItem(Items.DEEPSLATE_DIAMOND_ORE, 1),
+                    new ItemStack(ModItems.IRON_COIN, 5),
+                    16, 10, 0.02f
+            ));
+
+            // 深層岩のエメラルド鉱石 → 50S (IRON_COIN x5)
+            factories.add((entity, random) -> new TradeOffer(
+                    new TradedItem(Items.DEEPSLATE_EMERALD_ORE, 1),
+                    new ItemStack(ModItems.IRON_COIN, 5),
+                    16, 10, 0.02f
+            ));
+        });
+
+        // レベル3の取引（希少素材）
+        TradeOfferHelper.registerVillagerOffers(BANK_VILLAGER, 3, factories -> {
+
+            // ネザライトの欠片 → 250S (IRON_COIN x25)
+            factories.add((entity, random) -> new TradeOffer(
+                    new TradedItem(Items.NETHERITE_SCRAP, 1),
+                    new ItemStack(ModItems.IRON_COIN, 25),
+                    12, 20, 0.02f
             ));
         });
     }

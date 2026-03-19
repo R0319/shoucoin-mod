@@ -8,6 +8,7 @@
   "item.shoucoinmod.portable_crafting_table": "Portable Crafting Table",
   "PortableCraftingTableItemText.shoucoinmod": "Crafting",
   "itemGroup.shoucoinmod": "Shoucoin Mod",
+  "block.shoucoinmod.atm": "ATM",
 
   "block.shoucoinmod.bank_job_block": "Banker Block",
   "entity.minecraft.villager.bank_villager": "Bank Clerk"

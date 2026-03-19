@@ -22,6 +22,7 @@ import net.minecraft.world.World;
 import net.ryoma.shoucoin.block.entity.ATMBlockEntity;
 import net.ryoma.shoucoin.data.BankDataManager;
 import net.ryoma.shoucoin.network.BankUpdateS2CPacket;
+import net.ryoma.shoucoin.network.ModPackets;
 
 public class ATMBlock extends BlockWithEntity {
 
@@ -114,7 +115,23 @@ public class ATMBlock extends BlockWithEntity {
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
             int balance = BankDataManager.get(serverPlayer.getServer())
                     .getBalance(serverPlayer.getUuid());
-            ServerPlayNetworking.send(serverPlayer, new BankUpdateS2CPacket(balance, ""));
+            ServerPlayNetworking.send(serverPlayer,
+                    new BankUpdateS2CPacket(balance, "", "ERROR", 0));
+        }
+
+        if (be instanceof ATMBlockEntity atmBE) {
+            player.openHandledScreen(atmBE);
+
+            ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+
+            // 残高を送信
+            int balance = BankDataManager.get(serverPlayer.getServer())
+                    .getBalance(serverPlayer.getUuid());
+            ServerPlayNetworking.send(serverPlayer,
+                    new BankUpdateS2CPacket(balance, "", "ERROR", 0));
+
+            // プレイヤー一覧を送信 ← 追加
+            ModPackets.sendPlayerList(serverPlayer);
         }
 
         return ActionResult.CONSUME;

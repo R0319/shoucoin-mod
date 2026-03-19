@@ -7,7 +7,7 @@ import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 import net.ryoma.shoucoin.ShoucoinMod;
 
-public record WithdrawC2SPacket(int amount) implements CustomPayload {
+public record WithdrawC2SPacket(int amount, String coinType) implements CustomPayload {
 
     public static final Id<WithdrawC2SPacket> ID =
             new Id<>(Identifier.of(ShoucoinMod.MOD_ID, "withdraw"));
@@ -15,6 +15,7 @@ public record WithdrawC2SPacket(int amount) implements CustomPayload {
     public static final PacketCodec<RegistryByteBuf, WithdrawC2SPacket> CODEC =
             PacketCodec.tuple(
                     PacketCodecs.INTEGER, WithdrawC2SPacket::amount,
+                    PacketCodecs.STRING,  WithdrawC2SPacket::coinType,
                     WithdrawC2SPacket::new
             );
 

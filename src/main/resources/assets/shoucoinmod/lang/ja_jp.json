@@ -1,4 +1,5 @@
 {
+  "itemGroup.shoucoinmod":"しょうちゃんMOD",
   "item.shoucoinmod.shoucoin": "しょうコイン",
   "item.shoucoinmod.iron_coin": "鉄のコイン",
   "item.shoucoinmod.gold_coin": "金のコイン",
@@ -7,7 +8,9 @@
   "item.shoucoinmod.emerald_coin": "エメラルドのコイン",
   "item.shoucoinmod.portable_crafting_table": "簡易作業台",
   "PortableCraftingTableItemText.shoucoinmod": "簡易作業台",
-  "itemGroup.shoucoinmod":"しょうちゃんMOD",
+
   "block.shoucoinmod.bank_job_block": "銀行員の職業ブロック",
+  "block.shoucoinmod.atm": "ATM",
+
   "entity.minecraft.villager.bank_villager": "銀行員"
 }
