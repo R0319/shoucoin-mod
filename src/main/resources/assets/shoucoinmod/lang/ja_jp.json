@@ -6,11 +6,13 @@
   "item.shoucoinmod.diamond_coin":"ダイヤのコイン",
   "item.shoucoinmod.netherite_coin":"ネザライトのコイン",
   "item.shoucoinmod.emerald_coin": "エメラルドのコイン",
+
   "item.shoucoinmod.portable_crafting_table": "簡易作業台",
   "PortableCraftingTableItemText.shoucoinmod": "簡易作業台",
 
-  "block.shoucoinmod.bank_job_block": "銀行員の職業ブロック",
   "block.shoucoinmod.atm": "ATM",
+  "item.shoucoinmod.atm.tooltip" : "CTRL+右クリックでも入金が可能",
 
+  "block.shoucoinmod.bank_job_block": "銀行員の職業ブロック",
   "entity.minecraft.villager.bank_villager": "銀行員"
 }

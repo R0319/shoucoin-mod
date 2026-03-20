@@ -128,7 +128,6 @@ public class ATMScreen extends HandledScreen<ATMScreenHandler> {
         context.drawText(textRenderer, "金額:", x + 10, y + 40, 0x404040, false);
         context.drawText(textRenderer, "送金先:", x + 10, y + 90, 0x404040, false);
         context.drawText(textRenderer, "インベントリ", x + 8, y + 130, 0x404040, false);
-        context.drawText(textRenderer, "Ctrl+クリックで入金", x + 80, y + 130, 0x808080, false);
 
         // ステータスメッセージ
         if (!statusMessage.isEmpty()) {
