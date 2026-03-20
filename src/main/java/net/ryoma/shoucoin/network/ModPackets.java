@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 import net.ryoma.shoucoin.data.BankDataManager;
 import net.ryoma.shoucoin.item.ModItems;
 import net.ryoma.shoucoin.util.CoinValue;
@@ -146,6 +147,13 @@ public class ModPackets {
             // 受取人にも受信通知
             sendUpdate(target, bank.getBalance(target.getUuid()),
                     sender.getName().getString() + "から" + amount + "S 受け取りました", "TRANSFER", amount);
+
+            String senderName = sender.getName().getString();
+            String formattedAmount = String.format("%,d", amount);
+            target.sendMessage(
+                    Text.literal("§a[送金通知] §f" + senderName + "から、" + formattedAmount + " SCoin送金されました"),
+                    false
+            );
         });
     }
 

@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
@@ -18,7 +19,10 @@ import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
 import net.ryoma.shoucoin.ShoucoinMod;
 import net.ryoma.shoucoin.block.ModBlocks;
+import net.ryoma.shoucoin.config.ShoucoinConfig;
 import net.ryoma.shoucoin.item.ModItems;
+
+import java.util.List;
 
 public class ModVillagers {
     public static final RegistryKey<PointOfInterestType> BANK_JOB_POI_KEY = registerPoiKey("bank_job_poi");
@@ -55,76 +59,32 @@ public class ModVillagers {
 
     public static void registerVillagers() {
         ShoucoinMod.LOGGER.info("Registering Villagers for" + ShoucoinMod.MOD_ID);
-        ShoucoinMod.LOGGER.info("POI: " + BANK_JOB_POI_KEY);
-        ShoucoinMod.LOGGER.info("Profession: " + Registries.VILLAGER_PROFESSION.getId(BANK_VILLAGER));
-        ShoucoinMod.LOGGER.info("States: " + ModBlocks.BANK_JOB_BLOCK.getStateManager().getStates());
 
-        // レベル1の取引（基本素材）
-        TradeOfferHelper.registerVillagerOffers(BANK_VILLAGER, 1, factories -> {
+        // レベルごとにコンフィグから取引を登録
+        for (int level = 1; level <= 5; level++) {
+            final int lvl = level;
+            List<ShoucoinConfig.TradeEntry> levelTrades = ShoucoinConfig.trades.stream()
+                    .filter(t -> t.level == lvl)
+                    .toList();
 
-            // 銅の原石 → 1S
-            factories.add((entity, random) -> new TradeOffer(
-                    new TradedItem(Items.RAW_COPPER, 1),
-                    new ItemStack(ModItems.SHOUCOIN, 1),
-                    32, 5, 0.02f
-            ));
+            if (levelTrades.isEmpty()) continue;
 
-            // クォーツ → 2S
-            factories.add((entity, random) -> new TradeOffer(
-                    new TradedItem(Items.QUARTZ, 1),
-                    new ItemStack(ModItems.SHOUCOIN, 2),
-                    32, 5, 0.02f
-            ));
+            TradeOfferHelper.registerVillagerOffers(BANK_VILLAGER, lvl, factories -> {
+                for (ShoucoinConfig.TradeEntry entry : levelTrades) {
+                    factories.add((entity, random) -> {
+                        Item buyItem  = Registries.ITEM.get(Identifier.of(entry.buyItem));
+                        Item sellItem = Registries.ITEM.get(Identifier.of(entry.sellItem));
 
-            // レッドストーン → 2S
-            factories.add((entity, random) -> new TradeOffer(
-                    new TradedItem(Items.REDSTONE, 1),
-                    new ItemStack(ModItems.SHOUCOIN, 2),
-                    32, 5, 0.02f
-            ));
-
-            // 鉄の原石 → 8S
-            factories.add((entity, random) -> new TradeOffer(
-                    new TradedItem(Items.RAW_IRON, 1),
-                    new ItemStack(ModItems.SHOUCOIN, 8),
-                    32, 5, 0.02f
-            ));
-        });
-
-        // レベル2の取引（中級素材）
-        TradeOfferHelper.registerVillagerOffers(BANK_VILLAGER, 2, factories -> {
-
-            // 金の原石 → 12S
-            factories.add((entity, random) -> new TradeOffer(
-                    new TradedItem(Items.RAW_GOLD, 1),
-                    new ItemStack(ModItems.SHOUCOIN, 12),
-                    24, 10, 0.02f
-            ));
-
-            // 深層岩のダイヤモンド鉱石 → 50S (IRON_COIN x5)
-            factories.add((entity, random) -> new TradeOffer(
-                    new TradedItem(Items.DEEPSLATE_DIAMOND_ORE, 1),
-                    new ItemStack(ModItems.IRON_COIN, 5),
-                    16, 10, 0.02f
-            ));
-
-            // 深層岩のエメラルド鉱石 → 50S (IRON_COIN x5)
-            factories.add((entity, random) -> new TradeOffer(
-                    new TradedItem(Items.DEEPSLATE_EMERALD_ORE, 1),
-                    new ItemStack(ModItems.IRON_COIN, 5),
-                    16, 10, 0.02f
-            ));
-        });
-
-        // レベル3の取引（希少素材）
-        TradeOfferHelper.registerVillagerOffers(BANK_VILLAGER, 3, factories -> {
-
-            // ネザライトの欠片 → 250S (IRON_COIN x25)
-            factories.add((entity, random) -> new TradeOffer(
-                    new TradedItem(Items.NETHERITE_SCRAP, 1),
-                    new ItemStack(ModItems.IRON_COIN, 25),
-                    12, 20, 0.02f
-            ));
-        });
+                        return new TradeOffer(
+                                new TradedItem(buyItem, entry.buyCount),
+                                new ItemStack(sellItem, entry.sellCount),
+                                entry.maxUses,
+                                entry.villagerXp,
+                                entry.priceMultiplier
+                        );
+                    });
+                }
+            });
+        }
     }
 }

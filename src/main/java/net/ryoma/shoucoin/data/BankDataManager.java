@@ -6,6 +6,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.PersistentStateManager;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -71,5 +72,10 @@ public class BankDataManager extends PersistentState {
                 ),
                 "shoucoin_bank" // ワールドデータのファイル名 (.dat)
         );
+    }
+
+    // 残高順位表示の情報取得
+    public Map<UUID, Integer> getAllBalances() {
+        return Collections.unmodifiableMap(balances); // balancesはUUID→残高のMap
     }
 }

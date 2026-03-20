@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#E#",
+        "#R#",
+        "#S#"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:iron_block"
+        },
+        "E": {
+            "item": "minecraft:emerald_block"
+        },
+        "R": {
+            "item": "minecraft:red_wool"
+        },
+        "S": {
+            "item": "minecraft:stone"
+        }
+    },
+    "result": {
+        "id": "shoucoinmod:atm",
+        "count": 1
+    }
+}
