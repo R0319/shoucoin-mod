@@ -12,12 +12,20 @@ import net.ryoma.shoucoin.ShoucoinMod;
 public class ModBlocks {
     public static final Block BANK_JOB_BLOCK = register(
             "bank_job_block",
-            new BankJobBlock(AbstractBlock.Settings.copy(Blocks.GRAY_CONCRETE).nonOpaque())
+            new BankJobBlock(AbstractBlock.Settings.copy(Blocks.GRAY_CONCRETE)
+                    .nonOpaque()
+                    .requiresTool()
+                    .hardness(3.0f)
+                    .resistance(6.0f))
     );
 
     public static final ATMBlock ATM_BLOCK = (ATMBlock) register(
             "atm",
-            new ATMBlock(AbstractBlock.Settings.copy(Blocks.GRAY_CONCRETE).nonOpaque())
+            new ATMBlock(AbstractBlock.Settings.copy(Blocks.GRAY_CONCRETE)
+                    .nonOpaque()
+                    .requiresTool()
+                    .hardness(3.0f)
+                    .resistance(6.0f))
     );
 
     private static Block register(String name, Block block) {
