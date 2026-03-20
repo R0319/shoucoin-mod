@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.ryoma.shoucoin.item.ModItems;
 import net.ryoma.shoucoin.network.DepositC2SPacket;
 import net.ryoma.shoucoin.network.TransferC2SPacket;
@@ -126,8 +127,8 @@ public class ATMScreen extends HandledScreen<ATMScreenHandler> {
         // ラベル
         context.drawText(textRenderer, "金額:", x + 10, y + 40, 0x404040, false);
         context.drawText(textRenderer, "送金先:", x + 10, y + 90, 0x404040, false);
-        context.drawText(textRenderer, "インベントリ", x + 8, y + 132, 0x404040, false);
-        context.drawText(textRenderer, "Ctrl+クリックで入金", x + 80, y + 132, 0x808080, false);
+        context.drawText(textRenderer, "インベントリ", x + 8, y + 130, 0x404040, false);
+        context.drawText(textRenderer, "Ctrl+クリックで入金", x + 80, y + 130, 0x808080, false);
 
         // ステータスメッセージ
         if (!statusMessage.isEmpty()) {
@@ -158,57 +159,74 @@ public class ATMScreen extends HandledScreen<ATMScreenHandler> {
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
+        // テクスチャを描画
+        context.drawTexture(
+                Identifier.of("shoucoinmod", "textures/gui/atm_gui.png"),
+                x, y,
+                0, 0,
+                backgroundWidth, backgroundHeight,
+                256, 256
+        );
+
+        // --- テクスチャが機能しない場合の確認用（コメントアウト中）---
         // 上段：ATM操作エリア
-        context.fill(x, y, x + backgroundWidth, y + 130, 0xFFC6C6C6);
-
+        // context.fill(x, y, x + backgroundWidth, y + 130, 0xFFC6C6C6);
         // 下段：インベントリエリア
-        context.fill(x, y + 132, x + backgroundWidth, y + backgroundHeight, 0xFFD0D0D0);
-
+        // context.fill(x, y + 132, x + backgroundWidth, y + backgroundHeight, 0xFFD0D0D0);
         // メインインベントリスロット（3行×9列）
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 9; col++) {
-                int sx = x + 8 + col * 18;
-                int sy = y + 140 + row * 18;
-                context.fill(sx, sy, sx + 16, sy + 16, 0xFF8B8B8B);
-            }
-        }
-
+        // for (int row = 0; row < 3; row++) {
+        //     for (int col = 0; col < 9; col++) {
+        //         int sx = x + 8 + col * 18;
+        //         int sy = y + 140 + row * 18;
+        //         context.fill(sx, sy, sx + 16, sy + 16, 0xFF8B8B8B);
+        //     }
+        // }
         // ホットバースロット
-        for (int col = 0; col < 9; col++) {
-            int sx = x + 8 + col * 18;
-            int sy = y + 198;
-            context.fill(sx, sy, sx + 16, sy + 16, 0xFF8B8B8B);
-        }
+        // for (int col = 0; col < 9; col++) {
+        //     int sx = x + 8 + col * 18;
+        //     int sy = y + 198;
+        //     context.fill(sx, sy, sx + 16, sy + 16, 0xFF8B8B8B);
+        // }
+        // ------------------------------------------------------------
 
-        // 右側のコイン選択パネル背景
-        int px = x - 22;
-        context.fill(px, y, px + 22, y + COIN_OPTIONS.length * 22 + 4, 0xFF555555);
-        context.fill(px + 1, y + 1, px + 21, y + COIN_OPTIONS.length * 22 + 3, 0xFF888888);
+        // コイン選択パネル背景（左側）
+        int px = x - 24;
+
+        // context.fill(px, y, px + 22, y + COIN_OPTIONS.length * 22 + 4, 0xFF555555);
+        // context.fill(px + 1, y + 1, px + 21, y + COIN_OPTIONS.length * 22 + 3, 0xFF888888);
+
+        // テクスチャで描画
+        context.drawTexture(
+                Identifier.of("shoucoinmod", "textures/gui/atm_gui_icons.png"),
+                px, y,    // 描画位置
+                0, 0,     // UV開始位置
+                24, 114,  // 描画サイズ（18px × 108px）
+                256, 256  // テクスチャ全体のサイズ
+        );
     }
 
     // 右側のコインアイコン選択UIを描画
     private void drawCoinSelector(DrawContext context, int x, int y, int mouseX, int mouseY) {
-        // パネルのX座標（画面右側）
-        int px = x - 22;
+        int px = x - 21;
 
         for (int i = 0; i < COIN_OPTIONS.length; i++) {
             String coinType = (String) COIN_OPTIONS[i][0];
             Item coinItem = (Item) COIN_OPTIONS[i][1];
-            int iconY = y + 2 + i * 22;
+            int iconY = y + 4 + i * 18; // 外枠1px + スロット間1px
 
             boolean isSelected = coinType.equals(selectedCoin);
-            boolean isHovered = mouseX >= px + 2 && mouseX <= px + 20
-                    && mouseY >= iconY && mouseY <= iconY + 18;
+            boolean isHovered = mouseX >= px + 1 && mouseX <= px + 17
+                    && mouseY >= iconY && mouseY <= iconY + 16;
 
-            // 選択中はハイライト、ホバー中は少し明るく
+            // 選択中はハイライト
             if (isSelected) {
-                context.fill(px + 2, iconY, px + 20, iconY + 18, 0xFF6A9955);
+                context.fill(px + 1, iconY, px + 17, iconY + 16, 0xAA6A9955);
             } else if (isHovered) {
-                context.fill(px + 2, iconY, px + 20, iconY + 18, 0xFF999999);
+                context.fill(px + 1, iconY, px + 17, iconY + 16, 0x55FFFFFF);
             }
 
             // コインアイコンを描画
-            context.drawItem(new ItemStack(coinItem), px + 2, iconY + 1);
+            context.drawItem(new ItemStack(coinItem), px + 1, iconY);
         }
     }
 
@@ -239,12 +257,12 @@ public class ATMScreen extends HandledScreen<ATMScreenHandler> {
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
-        int px = x - 22;
+        int px = x - 21;
 
         // コインアイコンがクリックされたか確認
         for (int i = 0; i < COIN_OPTIONS.length; i++) {
-            int iconY = y + 2 + i * 22;
-            if (mouseX >= px + 2 && mouseX <= px + 20
+            int iconY = y + 4 + i * 18;
+            if (mouseX >= px + 2 && mouseX <= px + 17
                     && mouseY >= iconY && mouseY <= iconY + 18) {
                 selectedCoin = (String) COIN_OPTIONS[i][0];
                 return true;

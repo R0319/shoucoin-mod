@@ -14,7 +14,7 @@ public class ModBlockEntities {
             Registry.register(
                     Registries.BLOCK_ENTITY_TYPE,
                     Identifier.of(ShoucoinMod.MOD_ID, "atm"),
-                    FabricBlockEntityTypeBuilder.create(ATMBlockEntity::new, ModBlocks.ATM_BLOCK).build()
+                    BlockEntityType.Builder.create(ATMBlockEntity::new, ModBlocks.ATM_BLOCK).build()
             );
 
     public static void registerBlockEntities() {

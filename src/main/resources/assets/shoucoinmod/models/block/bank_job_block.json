@@ -3,7 +3,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
-		"1": "shoucoinmod:block/safe"
+		"1": "shoucoinmod:block/safe",
+		"particle": "minecraft:block/gray_concrete"
 	},
 	"elements": [
 		{
