@@ -27,11 +27,11 @@ public class BankLeaderboardCommand {
         ServerCommandSource source = context.getSource();
         BankDataManager bank = BankDataManager.get(source.getServer());
 
-        // 残高を降順で最大10件取得
-        List<Map.Entry<UUID, Integer>> top = bank.getAllBalances()
+        // 残高を降順で最大10件取得（long型）
+        List<Map.Entry<UUID, Long>> top = bank.getAllBalances()
                 .entrySet()
                 .stream()
-                .sorted(Map.Entry.<UUID, Integer>comparingByValue().reversed())
+                .sorted(Map.Entry.<UUID, Long>comparingByValue().reversed())
                 .limit(10)
                 .toList();
 
@@ -39,7 +39,7 @@ public class BankLeaderboardCommand {
 
         for (int i = 0; i < top.size(); i++) {
             UUID uuid = top.get(i).getKey();
-            int balance = top.get(i).getValue();
+            long balance = top.get(i).getValue();
 
             // プレイヤー名を取得（オフラインでも名前を取得）
             String name = source.getServer()

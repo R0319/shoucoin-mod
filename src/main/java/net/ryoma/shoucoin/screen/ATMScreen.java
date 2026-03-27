@@ -24,12 +24,12 @@ public class ATMScreen extends HandledScreen<ATMScreenHandler> {
     private TextFieldWidget targetField;  // 送金先プレイヤー名入力
 
     // 累積入金額の管理
-    private int accumulatedDeposit = 0;
+    private long accumulatedDeposit = 0;
     private long lastDepositTime = 0;
     private static final long ACCUMULATE_WINDOW = 2000;
 
     // サーバーから受け取った残高（-1は未取得）
-    private int currentBalance = -1;
+    private long currentBalance = -1;
 
     // サーバーから受け取ったメッセージ
     private String statusMessage = "";
@@ -38,7 +38,7 @@ public class ATMScreen extends HandledScreen<ATMScreenHandler> {
     private MessageType messageType = MessageType.ERROR;
 
     // 選択中のコイン
-    private String selectedCoin = "SHOUCOIN";
+    private String selectedCoin = "NETHERITE_COIN";
 
     // Tab補完用プレイヤー一覧
     private List<String> onlinePlayers = new ArrayList<>();
@@ -121,7 +121,7 @@ public class ATMScreen extends HandledScreen<ATMScreenHandler> {
         // 残高表示
         String balanceText = currentBalance >= 0
                 ? "残高: " + String.format("%,d", currentBalance) + " SCoin   "
-                : "残高: -- S";
+                : "残高: -- SCoin";
         context.drawText(textRenderer, balanceText, x + 10, y + 25, 0x404040, false);
 
         // ラベル
@@ -288,7 +288,8 @@ public class ATMScreen extends HandledScreen<ATMScreenHandler> {
     }
 
     // サーバーから残高・メッセージ・メッセージ種類を受け取って表示を更新
-    public void updateBalance(int balance, String message, MessageType type) {
+    // balance は long（残高オーバーフロー対策）
+    public void updateBalance(long balance, String message, MessageType type) {
         this.currentBalance = balance;
         this.messageType = type;
 
@@ -320,7 +321,8 @@ public class ATMScreen extends HandledScreen<ATMScreenHandler> {
         }
     }
 
-    // 金額入力欄のテキストを整数に変換（不正な入力は0を返す）
+    // 金額入力欄のテキストをintに変換（不正な入力は0を返す）
+    // 入力フィールドはmax8桁なので int 範囲内（最大99,999,999）
     private int parseAmount() {
         try {
             return Integer.parseInt(amountField.getText().trim());

@@ -6,13 +6,28 @@
   "item.shoucoinmod.diamond_coin":"ダイヤのコイン",
   "item.shoucoinmod.netherite_coin":"ネザライトのコイン",
   "item.shoucoinmod.emerald_coin": "エメラルドのコイン",
+  "item.shoucoinmod.shou_totem": "しょうトーテム",
+
+  "item.shoucoinmod.shoucoin.tooltip": "1 S",
+  "item.shoucoinmod.iron_coin.tooltip": "10 S",
+  "item.shoucoinmod.gold_coin.tooltip": "100 S",
+  "item.shoucoinmod.diamond_coin.tooltip": "1,000 S",
+  "item.shoucoinmod.emerald_coin.tooltip": "100,00 S",
+  "item.shoucoinmod.netherite_coin.tooltip": "100,000 S",
+
+  "item.shoucoinmod.shou_totem.tooltip": "不死の効果がある",
 
   "item.shoucoinmod.portable_crafting_table": "簡易作業台",
   "PortableCraftingTableItemText.shoucoinmod": "簡易作業台",
 
   "block.shoucoinmod.atm": "ATM",
-  "item.shoucoinmod.atm.tooltip" : "CTRL+右クリックでも入金が可能",
+  "item.shoucoinmod.atm.tooltip" : "CTRL+クリックでも入金が可能",
 
-  "block.shoucoinmod.bank_job_block": "銀行員の職業ブロック",
-  "entity.minecraft.villager.bank_villager": "銀行員"
+  "block.shoucoinmod.bank_job_block": "金庫",
+  "block.shoucoinmod.shop_block": "携帯型売買端末",
+
+  "item.shoucoinmod.totem_of_undying.1_tooltip": "復活の効果は失われている",
+  "item.shoucoinmod.totem_of_undying.2_tooltip": "高く売れるかもしれない",
+
+  "enchantment.shoucoinmod.tunnel": "トンネル"
 }

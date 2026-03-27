@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "shoucoinmod:block/shop_block" },
+    "facing=east":  { "model": "shoucoinmod:block/shop_block", "y": 90 },
+    "facing=south": { "model": "shoucoinmod:block/shop_block", "y": 180 },
+    "facing=west":  { "model": "shoucoinmod:block/shop_block", "y": 270 }
+  }
+}

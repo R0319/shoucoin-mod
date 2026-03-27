@@ -4,8 +4,11 @@ import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
+import net.ryoma.shoucoin.config.ShoucoinConfig;
 import net.ryoma.shoucoin.data.BankDataManager;
 import net.ryoma.shoucoin.item.ModItems;
 import net.ryoma.shoucoin.util.CoinValue;
@@ -24,14 +27,20 @@ public class ModPackets {
         // プレイヤー一覧パケットの登録
         PayloadTypeRegistry.playS2C().register(PlayerListS2CPacket.ID, PlayerListS2CPacket.CODEC);
 
+        // ショップパケットの登録
+        PayloadTypeRegistry.playC2S().register(ShopBuyC2SPacket.ID, ShopBuyC2SPacket.CODEC);
+        PayloadTypeRegistry.playS2C().register(ShopTradesS2CPacket.ID, ShopTradesS2CPacket.CODEC);
+        PayloadTypeRegistry.playS2C().register(ShopResultS2CPacket.ID, ShopResultS2CPacket.CODEC);
+        registerShopReceiver();
+
         // 入金パケットの受信処理
         ServerPlayNetworking.registerGlobalReceiver(DepositC2SPacket.ID, (packet, context) -> {
             ServerPlayerEntity player = context.player();
             int amount = packet.amount();
             BankDataManager bank = BankDataManager.get(player.getServer());
 
-            // インベントリの全コインの合計S換算値を確認
-            int totalCoinValue = countTotalCoinValue(player);
+            // インベントリの全コインの合計S換算値を確認（longでオーバーフロー防止）
+            long totalCoinValue = countTotalCoinValue(player);
             if (totalCoinValue < amount) {
                 sendUpdate(player, bank.getBalance(player.getUuid()),
                         "コインが足りません", "ERROR", 0);
@@ -61,7 +70,6 @@ public class ModPackets {
 
             // 選択コイン以下のレートを持つコインで段階的に出金
             int remaining = amount;
-            boolean reachedSelected = false;
 
             // レート降順（大きい順）に処理
             int[][] coinRates = {
@@ -164,22 +172,23 @@ public class ModPackets {
             case "DIAMOND_COIN"   -> ModItems.DIAMOND_COIN;
             case "EMERALD_COIN"   -> ModItems.EMERALD_COIN;
             case "NETHERITE_COIN" -> ModItems.NETHERITE_COIN;
-            default               -> ModItems.SHOUCOIN; // デフォルトはShoucoin
+            default               -> ModItems.SHOUCOIN;
         };
     }
 
     // 残高更新パケットをクライアントに送信するユーティリティ
-    private static void sendUpdate(ServerPlayerEntity player, int balance,
+    // balance は long（残高オーバーフロー対策）、amount は int（1回の操作はmax8桁）
+    private static void sendUpdate(ServerPlayerEntity player, long balance,
                                    String message, String type, int amount) {
         ServerPlayNetworking.send(player, new BankUpdateS2CPacket(balance, message, type, amount));
     }
 
-    // インベントリの全コインの合計S換算値を数える
-    private static int countTotalCoinValue(ServerPlayerEntity player) {
-        int total = 0;
+    // インベントリの全コインの合計S換算値を数える（longでオーバーフロー防止）
+    private static long countTotalCoinValue(ServerPlayerEntity player) {
+        long total = 0;
         for (ItemStack stack : player.getInventory().main) {
             if (CoinValue.isCoin(stack.getItem())) {
-                total += stack.getCount() * CoinValue.getValue(stack.getItem());
+                total += (long) stack.getCount() * CoinValue.getValue(stack.getItem());
             }
         }
         return total;
@@ -206,7 +215,6 @@ public class ModPackets {
             for (ItemStack stack : player.getInventory().main) {
                 if (remaining <= 0) break;
                 if (stack.getItem() == coinItem) {
-                    // このスタックから何枚消費できるか
                     int canUse = Math.min(stack.getCount(), remaining / rate);
                     if (canUse > 0) {
                         stack.decrement(canUse);
@@ -217,12 +225,67 @@ public class ModPackets {
         }
     }
 
+    private static void registerShopReceiver() {
+        ServerPlayNetworking.registerGlobalReceiver(ShopBuyC2SPacket.ID, (packet, context) -> {
+            ServerPlayerEntity player = context.player();
+            int index = packet.tradeIndex();
+            int requestedQty = Math.max(1, packet.quantity());
+            List<ShoucoinConfig.TradeEntry> trades = ShoucoinConfig.trades;
+
+            if (index < 0 || index >= trades.size()) {
+                ServerPlayNetworking.send(player, new ShopResultS2CPacket("無効な取引です", false));
+                return;
+            }
+
+            ShoucoinConfig.TradeEntry trade = trades.get(index);
+            Item buyItem  = Registries.ITEM.get(Identifier.of(trade.buyItem));
+            Item sellItem = Registries.ITEM.get(Identifier.of(trade.sellItem));
+
+            // 実行可能な最大回数を計算（インベントリのbuyItemの合計からの上限）
+            int totalBuyAvailable = 0;
+            for (ItemStack stack : player.getInventory().main) {
+                if (stack.getItem() == buyItem) totalBuyAvailable += stack.getCount();
+            }
+            int maxByInventory = totalBuyAvailable / trade.buyCount;
+            int execCount = Math.min(requestedQty, maxByInventory);
+
+            if (execCount <= 0) {
+                ServerPlayNetworking.send(player, new ShopResultS2CPacket(
+                        buyItem.getName().getString() + " が " + trade.buyCount + " 個必要です", false));
+                return;
+            }
+
+            // buyItem を buyCount × execCount 個消費
+            int toRemove = trade.buyCount * execCount;
+            for (ItemStack stack : player.getInventory().main) {
+                if (toRemove <= 0) break;
+                if (stack.getItem() == buyItem) {
+                    int take = Math.min(stack.getCount(), toRemove);
+                    stack.decrement(take);
+                    toRemove -= take;
+                }
+            }
+
+            // sellItem を sellCount × execCount 個付与（スタック上限を超える場合は分割）
+            int totalSell = trade.sellCount * execCount;
+            int maxStack = sellItem.getMaxCount();
+            while (totalSell > 0) {
+                int give = Math.min(totalSell, maxStack);
+                player.getInventory().offerOrDrop(new ItemStack(sellItem, give));
+                totalSell -= give;
+            }
+
+            String msg = execCount == 1 ? "取引完了！" : "取引完了！ ×" + execCount;
+            ServerPlayNetworking.send(player, new ShopResultS2CPacket(msg, true));
+        });
+    }
+
     // オンラインプレイヤー一覧をクライアントに送信
     public static void sendPlayerList(ServerPlayerEntity player) {
         List<String> names = player.getServer().getPlayerManager().getPlayerList()
                 .stream()
                 .map(p -> p.getName().getString())
-                .filter(name -> !name.equals(player.getName().getString())) // 自分を除く
+                .filter(name -> !name.equals(player.getName().getString()))
                 .toList();
         ServerPlayNetworking.send(player, new PlayerListS2CPacket(names));
     }

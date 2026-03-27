@@ -29,9 +29,11 @@ public class ModItemGroups {
                 entries.add(ModItems.EMERALD_COIN);
                 entries.add(ModItems.NETHERITE_COIN);
                 entries.add(ModItems.PORTABLE_CRAFTING_TABLE);
+                entries.add(ModItems.SHOU_TOTEM);
 
                 entries.add(ModBlocks.BANK_JOB_BLOCK);
                 entries.add(ModBlocks.ATM_BLOCK);
+                entries.add(ModBlocks.SHOP_BLOCK);
             })
             .build();
 

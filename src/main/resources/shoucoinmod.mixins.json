@@ -1,14 +1,16 @@
 {
-	"required": true,
-	"package": "net.ryoma.shoucoin.mixin",
-	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-		"ShoucoinMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"overwrites": {
-		"requireAnnotations": true
-	}
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.ryoma.shoucoin.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "LivingEntityMixin",
+    "ItemTooltipMixin"
+  ],
+  "client": [
+    "TotemAnimationClientMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }

@@ -16,6 +16,13 @@ public class ModScreenHandlers {
                     new ScreenHandlerType<>(ATMScreenHandler::new, FeatureFlags.VANILLA_FEATURES)
             );
 
+    public static final ScreenHandlerType<ShopScreenHandler> SHOP_SCREEN_HANDLER =
+            Registry.register(
+                    Registries.SCREEN_HANDLER,
+                    Identifier.of(ShoucoinMod.MOD_ID, "shop"),
+                    new ScreenHandlerType<>(ShopScreenHandler::new, FeatureFlags.VANILLA_FEATURES)
+            );
+
     public static void registerScreenHandlers() {
         ShoucoinMod.LOGGER.info("Registering Screen Handlers for " + ShoucoinMod.MOD_ID);
     }

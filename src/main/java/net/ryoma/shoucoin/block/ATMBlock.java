@@ -113,7 +113,7 @@ public class ATMBlock extends BlockWithEntity {
 
             // ↓ 開いた瞬間に残高をクライアントに送る
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
-            int balance = BankDataManager.get(serverPlayer.getServer())
+            long balance = BankDataManager.get(serverPlayer.getServer())
                     .getBalance(serverPlayer.getUuid());
             ServerPlayNetworking.send(serverPlayer,
                     new BankUpdateS2CPacket(balance, "", "ERROR", 0));
@@ -125,7 +125,7 @@ public class ATMBlock extends BlockWithEntity {
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
 
             // 残高を送信
-            int balance = BankDataManager.get(serverPlayer.getServer())
+            long balance = BankDataManager.get(serverPlayer.getServer())
                     .getBalance(serverPlayer.getUuid());
             ServerPlayNetworking.send(serverPlayer,
                     new BankUpdateS2CPacket(balance, "", "ERROR", 0));

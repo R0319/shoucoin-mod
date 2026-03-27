@@ -1,22 +1,16 @@
 package net.ryoma.shoucoin;
 
 import net.fabricmc.api.ModInitializer;
-
-import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.village.TradeOffer;
-import net.minecraft.village.TradedItem;
-import net.minecraft.village.VillagerProfession;
 import net.ryoma.shoucoin.block.ModBlockEntities;
 import net.ryoma.shoucoin.block.ModBlocks;
 import net.ryoma.shoucoin.command.BankLeaderboardCommand;
+import net.ryoma.shoucoin.command.ReloadConfigCommand;
 import net.ryoma.shoucoin.config.ShoucoinConfig;
 import net.ryoma.shoucoin.item.ModItemGroups;
 import net.ryoma.shoucoin.item.ModItems;
+import net.ryoma.shoucoin.enchantment.TunnelEnchantmentHandler;
 import net.ryoma.shoucoin.network.ModPackets;
 import net.ryoma.shoucoin.screen.ModScreenHandlers;
-import net.ryoma.shoucoin.villager.ModVillagers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +22,8 @@ public class ShoucoinMod implements ModInitializer {
 	public void onInitialize() {
 		LOGGER.info("Hello Fabric world!");
 
-		ShoucoinConfig.load(); // ← 最初に読み込む
+		ShoucoinConfig.load();
+		ReloadConfigCommand.register();
 		ModItems.register();
 		ModBlocks.registerBlocks();
 		ModBlockEntities.registerBlockEntities();
@@ -38,7 +33,6 @@ public class ShoucoinMod implements ModInitializer {
 
 		ModItems.registerBlocks();
 		ModItemGroups.register();
-		ModVillagers.registerVillagers();
+		TunnelEnchantmentHandler.register();
 	}
-
 }

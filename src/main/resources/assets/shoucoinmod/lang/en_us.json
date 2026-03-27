@@ -6,7 +6,8 @@
   "item.shoucoinmod.gold_coin": "Gold Coin",
   "item.shoucoinmod.diamond_coin":"Diamond Coin",
   "item.shoucoinmod.netherite_coin":"Netherite Coin",
-  "item.shoucoinmod.emerald_coin": "Emerald Coin",
+  "item.shoucoinmod.emerald_coin": "Emerald Coin",,
+  "item.shoucoinmod.shou_totem": "Shou Totem",
 
   "item.shoucoinmod.shoucoin.tooltip": "1 S",
   "item.shoucoinmod.iron_coin.tooltip": "10 S",
@@ -15,13 +16,15 @@
   "item.shoucoinmod.emerald_coin.tooltip": "100,00 S",
   "item.shoucoinmod.netherite_coin.tooltip": "100,000 S",
 
+  "item.shoucoinmod.shou_totem.tooltip": "",
+
   "item.shoucoinmod.portable_crafting_table": "Portable Crafting Table",
   "PortableCraftingTableItemText.shoucoinmod": "Crafting",
 
   "block.shoucoinmod.atm": "ATM",
-  "item.shoucoinmod.atm.tooltip" : "CTRL + Right-click to deposit",
+  "item.shoucoinmod.atm.tooltip" : "CTRL + Click to deposit",
   "item.shoucoinmod.line_break.tooltip": "",
 
-  "block.shoucoinmod.bank_job_block": "Banker Block",
-  "entity.minecraft.villager.bank_villager": "Bank Clerk"
+  "block.shoucoinmod.bank_job_block": "Safe",
+  "block.shoucoinmod.shop_block": "Shop"
 }

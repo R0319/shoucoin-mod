@@ -15,7 +15,7 @@ public record TransferC2SPacket(int amount, String targetName) implements Custom
     public static final PacketCodec<RegistryByteBuf, TransferC2SPacket> CODEC =
             PacketCodec.tuple(
                     PacketCodecs.INTEGER, TransferC2SPacket::amount,
-                    PacketCodecs.STRING, TransferC2SPacket::targetName,
+                    PacketCodecs.STRING,  TransferC2SPacket::targetName,
                     TransferC2SPacket::new
             );
 

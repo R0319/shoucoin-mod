@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "shoucoinmod:shop_block",
+    "shoucoinmod:bank_job_block",
+    "shoucoinmod:atm"
+  ]
+}

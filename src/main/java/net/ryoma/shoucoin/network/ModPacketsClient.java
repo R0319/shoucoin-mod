@@ -1,9 +1,13 @@
 package net.ryoma.shoucoin.network;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.ryoma.shoucoin.screen.ATMScreen;
 import net.minecraft.client.MinecraftClient;
 import net.ryoma.shoucoin.network.PlayerListS2CPacket;
+import net.ryoma.shoucoin.screen.ATMScreen;
+import net.ryoma.shoucoin.screen.ShopScreen;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ModPacketsClient {
 
@@ -41,6 +45,27 @@ public class ModPacketsClient {
             context.client().execute(() -> {
                 if (MinecraftClient.getInstance().currentScreen instanceof ATMScreen atmScreen) {
                     atmScreen.updatePlayerList(packet.playerNames());
+                }
+            });
+        });
+
+        // ショップ交易一覧を受信してShopScreenに渡す
+        ClientPlayNetworking.registerGlobalReceiver(ShopTradesS2CPacket.ID, (packet, context) -> {
+            context.client().execute(() -> {
+                if (MinecraftClient.getInstance().currentScreen instanceof ShopScreen shopScreen) {
+                    List<ShopTradesS2CPacket.TradeData> parsed = packet.trades().stream()
+                            .map(ShopTradesS2CPacket.TradeData::parse)
+                            .collect(Collectors.toList());
+                    shopScreen.setTrades(parsed);
+                }
+            });
+        });
+
+        // ショップ購入結果を受信してShopScreenに表示
+        ClientPlayNetworking.registerGlobalReceiver(ShopResultS2CPacket.ID, (packet, context) -> {
+            context.client().execute(() -> {
+                if (MinecraftClient.getInstance().currentScreen instanceof ShopScreen shopScreen) {
+                    shopScreen.showStatus(packet.message(), packet.success());
                 }
             });
         });

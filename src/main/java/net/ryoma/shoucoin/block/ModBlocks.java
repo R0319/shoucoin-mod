@@ -19,6 +19,15 @@ public class ModBlocks {
                     .resistance(6.0f))
     );
 
+    public static final Block SHOP_BLOCK = register(
+            "shop_block",
+            new ShopBlock(AbstractBlock.Settings.copy(Blocks.GRAY_CONCRETE)
+                    .nonOpaque()
+                    .requiresTool()
+                    .hardness(3.0f)
+                    .resistance(6.0f))
+    );
+
     public static final ATMBlock ATM_BLOCK = (ATMBlock) register(
             "atm",
             new ATMBlock(AbstractBlock.Settings.copy(Blocks.GRAY_CONCRETE)

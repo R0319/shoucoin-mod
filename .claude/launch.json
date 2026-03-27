@@ -1,0 +1,21 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Minecraft Client",
+      "runtimeExecutable": "gradlew.bat",
+      "runtimeArgs": ["runClient"]
+    },
+    {
+      "name": "Minecraft Server",
+      "runtimeExecutable": "gradlew.bat",
+      "runtimeArgs": ["runServer"],
+      "port": 25565
+    },
+    {
+      "name": "Data Generator",
+      "runtimeExecutable": "gradlew.bat",
+      "runtimeArgs": ["runDatagen"]
+    }
+  ]
+}

@@ -34,12 +34,16 @@ public class ModItems {
     public static final Item EMERALD_COIN = registerItem("emerald_coin",
             new CoinItem(new Item.Settings(), "item.shoucoinmod.emerald_coin.tooltip"));
 
+    public static final Item SHOU_TOTEM = registerItem("shou_totem",
+            new ShouTotem(new Item.Settings().maxCount(1),"item.shoucoinmod.shou_totem.tooltip"));
+
     public static final Item PORTABLE_CRAFTING_TABLE =
             registerItem("portable_crafting_table",
                     new PortableCraftingTableItem(
-                            new Item.Settings()
+                            new PortableCraftingTableItem.Settings()
                                     .maxCount(1)
                     )
+
             );
 
     //アイテム登録のためのヘルパーメソッド
@@ -64,6 +68,12 @@ public class ModItems {
                         tooltip.add(Text.translatable("item.shoucoinmod.atm.tooltip").formatted(Formatting.GRAY));
                     }
                 }
+        );
+
+        Registry.register(
+                Registries.ITEM,
+                Identifier.of(ShoucoinMod.MOD_ID, "shop_block"),
+                new BlockItem(ModBlocks.SHOP_BLOCK, new Item.Settings())
         );
     }
 
