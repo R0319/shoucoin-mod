@@ -55,8 +55,8 @@ public class ShoucoinConfig {
         defaults.add(make("minecraft:deepslate_diamond_ore", 1, "shoucoinmod:iron_coin",  5));
         defaults.add(make("minecraft:deepslate_emerald_ore", 1, "shoucoinmod:iron_coin",  5));
         defaults.add(make("minecraft:netherite_scrap",       1, "shoucoinmod:iron_coin", 25));
-        defaults.add(make("minecraft:totem_of_undying",       1, "shoucoinmod:diamond_coin", 5));
-        defaults.add(make("shoucoinmod:emerald_coin",       1, "shoucoinmod:shou_totem", 1));
+        defaults.add(make("minecraft:totem_of_undying",       1, "shoucoinmod:emerald_coin", 2));
+        defaults.add(make("shoucoinmod:emerald_coin",       5, "shoucoinmod:shou_totem", 1));
 
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
