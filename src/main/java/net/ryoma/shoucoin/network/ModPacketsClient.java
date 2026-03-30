@@ -2,7 +2,6 @@ package net.ryoma.shoucoin.network;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
-import net.ryoma.shoucoin.network.PlayerListS2CPacket;
 import net.ryoma.shoucoin.screen.ATMScreen;
 import net.ryoma.shoucoin.screen.ShopScreen;
 

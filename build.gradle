@@ -21,8 +21,18 @@ repositories {
 loom {
 	runs {
 		client {
-			runDir "run/client"
+			client()
+			setConfigName("Minecraft Client - Player1")
+			runDir("run/client_1")
+			programArgs("--username", "Player1")
 		}
+		client2 {
+			client()
+			setConfigName("Minecraft Client - Player2")
+			runDir("run/client_2")
+			programArgs("--username", "Player2")
+		}
+
 		server {
 			runDir "run/server"
 		}
